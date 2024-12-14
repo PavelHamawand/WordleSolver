@@ -3,6 +3,7 @@
 #include <unordered_set>
 #include <cctype>
 #include "utils.h"  // För hjälpfunktionerna
+#include <iostream>
 
 // wrong_fn implementation
 wrong_fn::wrong_fn(const std::string& letters) : l{letters} {}
@@ -72,4 +73,22 @@ std::vector<std::string> read_candidates(std::istream& input) {
         }
     }
     return candidates;
+}
+
+std::tuple<std::string, letters_and_indices, letters_and_indices> prompt() {
+    std::string wrong;
+    std::cout << "Enter wrong letters (e.g., xyz): ";
+    std::getline(std::cin, wrong);
+
+    std::string correct_input;
+    std::cout << "Enter correct letters (letter index pairs, e.g., a 0 b 1): ";
+    std::getline(std::cin, correct_input);
+    auto correct = build_list(correct_input);
+
+    std::string misplaced_input;
+    std::cout << "Enter misplaced letters (letter index pairs, e.g., a 0 b 1): ";
+    std::getline(std::cin, misplaced_input);
+    auto misplaced = build_list(misplaced_input);
+
+    return {wrong, correct, misplaced};
 }

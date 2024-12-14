@@ -25,3 +25,19 @@ bool contains_at(const std::string& s, char c, size_t pos) {
 bool contains_but_not_at(const std::string& s, char c, size_t pos) {
     return s.find(c) != std::string::npos && s[pos] != c;
 }
+
+#include <sstream> // Ensure this header is included
+#include "utils.h"
+
+letters_and_indices build_list(const std::string& line) {
+    letters_and_indices result;
+    std::istringstream iss(line); // This should now work correctly
+    char letter;
+    std::size_t index;
+
+    while (iss >> letter >> index) {
+        result[index] = letter;
+    }
+
+    return result;
+}

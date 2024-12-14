@@ -2,6 +2,10 @@
 #define UTILS_H
 
 #include <string>
+#include <map>
+
+// Alias for the map type used for green and yellow letters
+using letters_and_indices = std::map<std::size_t, char>;
 
 /**
  * Checks if the string `s` contains any of the characters in `cs`.
@@ -28,5 +32,12 @@ bool contains_at(const std::string& s, char c, size_t pos);
  * @return True if `c` is found in `s` but not at `pos`, otherwise false.
  */
 bool contains_but_not_at(const std::string& s, char c, size_t pos);
+
+/**
+ * Parses a string of index-letter pairs (e.g., "l 0 i 1 e 3") into a map.
+ * @param line The input string containing the pairs.
+ * @return A map where the key is the index, and the value is the letter.
+ */
+letters_and_indices build_list(const std::string& line);
 
 #endif // UTILS_H
