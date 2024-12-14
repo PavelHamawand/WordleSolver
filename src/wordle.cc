@@ -92,3 +92,19 @@ std::tuple<std::string, letters_and_indices, letters_and_indices> prompt() {
 
     return {wrong, correct, misplaced};
 }
+
+// Filters candidates based on the provided constraints
+void do_filter(std::vector<std::string>& c,
+               const std::string& wrong,
+               const letters_and_indices& green,
+               const letters_and_indices& yellow) {
+    // Create functors for grey, green, and yellow constraints
+    wrong_fn wrong_letters(wrong);
+    correct_fn green_letters(green);
+    misplaced_fn yellow_letters(yellow);
+
+    // Remove candidates that fail any of the constraints
+    c.erase(std::remove_if(c.begin(), c.end(), [&](const std::string& word) {
+        return wrong_letters(word) || !green_letters(word) || !yellow_letters(word);
+    }), c.end());
+}
