@@ -41,3 +41,12 @@ letters_and_indices build_list(const std::string& line) {
 
     return result;
 }
+
+/**
+ * Merges `src` into `dest`. If there are conflicting keys, `dest`'s values remain unchanged.
+ */
+void append(letters_and_indices& dest, const letters_and_indices& src) {
+    for (const auto& [index, letter] : src) {
+        dest.try_emplace(index, letter);  // Only add if `index` is not already in `dest`
+    }
+}

@@ -40,4 +40,11 @@ bool contains_but_not_at(const std::string& s, char c, size_t pos);
  */
 letters_and_indices build_list(const std::string& line);
 
+/**
+ * Appends the contents of `src` into `dest`.
+ * @param dest The destination map (to be modified).
+ * @param src The source map (to be merged into `dest`).
+ */
+void append(letters_and_indices& dest, const letters_and_indices& src);
+
 #endif // UTILS_H
