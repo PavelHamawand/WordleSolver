@@ -1,6 +1,7 @@
 #include "wordle.h"
 #include "utils.h"
 #include <iostream>
+#include <fstream>  // For reading the word list file
 #include <vector>
 #include <string>
 
@@ -8,8 +9,14 @@
  * Main program to solve Wordle interactively.
  */
 int main() {
-    // Example word list (replace with actual word list file reading if needed)
-    std::vector<std::string> candidates = {"apple", "baker", "cider", "alert", "alley", "libel", "piney"};
+    // Open dict.txt and read candidates
+    std::ifstream file("dict.txt");
+    if (!file.is_open()) {
+        std::cerr << "Failed to open dict.txt\n";
+        return 1;
+    }
+
+    std::vector<std::string> candidates = read_candidates(file);
 
     // Grey, green, and yellow letter sets
     std::string grey_letters;

@@ -55,9 +55,11 @@ void filter_candidates(std::vector<std::string>& candidates,
                      candidates.end());
 }
 
+
 /**
- * opens a word list from the an istream and gets all five-letter words. 
- * All words should be made lower-case and duplicates removed
+ * Reads all the words from the file and stores valid 5-letter words.
+ * @param input The input stream (usually a file).
+ * @return A vector of valid 5-letter words.
  */
 std::vector<std::string> read_candidates(std::istream& input) {
     std::unordered_set<std::string> unique_words;
@@ -66,12 +68,13 @@ std::vector<std::string> read_candidates(std::istream& input) {
 
     while (input >> word) {
         if (word.size() == 5) {
-            std::transform(word.begin(), word.end(), word.begin(), ::tolower);
-            if (unique_words.insert(word).second) {
+            std::transform(word.begin(), word.end(), word.begin(), ::tolower);  // Convert to lowercase
+            if (unique_words.insert(word).second) {  // Only insert if not already present
                 candidates.push_back(word);
             }
         }
     }
+
     return candidates;
 }
 
@@ -94,7 +97,7 @@ std::tuple<std::string, letters_and_indices, letters_and_indices> prompt() {
 }
 
 // Filters candidates based on the provided constraints
-void do_filter(std::vector<std::string>& c,
+void do_filter(std::vector<std::string>& candidates,
                const std::string& wrong,
                const letters_and_indices& green,
                const letters_and_indices& yellow) {
@@ -104,7 +107,13 @@ void do_filter(std::vector<std::string>& c,
     misplaced_fn yellow_letters(yellow);
 
     // Remove candidates that fail any of the constraints
-    c.erase(std::remove_if(c.begin(), c.end(), [&](const std::string& word) {
+    candidates.erase(std::remove_if(candidates.begin(), candidates.end(), [&](const std::string& word) {
         return wrong_letters(word) || !green_letters(word) || !yellow_letters(word);
-    }), c.end());
+    }), candidates.end());
+
+    // Debug: Print remaining candidates after filtering
+    std::cout << "Remaining candidates after filtering:\n";
+    for (const auto& word : candidates) {
+        std::cout << word << "\n";
+    }
 }
