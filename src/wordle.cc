@@ -5,14 +5,12 @@
 #include "utils.h"  // För hjälpfunktionerna
 #include <iostream>
 
-// wrong_fn implementation
 wrong_fn::wrong_fn(const std::string& letters) : l{letters} {}
 
 bool wrong_fn::operator()(const std::string& word) const {
     return contains_any_of(word, l);
 }
 
-// correct_fn implementation
 correct_fn::correct_fn(const letters_and_indices& idxs) : m{idxs} {}
 
 bool correct_fn::operator()(const std::string& word) const {
@@ -21,7 +19,6 @@ bool correct_fn::operator()(const std::string& word) const {
     });
 }
 
-// misplaced_fn implementation
 misplaced_fn::misplaced_fn(const letters_and_indices& idxs) : m{idxs} {}
 
 bool misplaced_fn::operator()(const std::string& word) const {
@@ -56,11 +53,7 @@ void filter_candidates(std::vector<std::string>& candidates,
 }
 
 
-/**
- * Reads all the words from the file and stores valid 5-letter words.
- * @param input The input stream (usually a file).
- * @return A vector of valid 5-letter words.
- */
+// Reads all the words from the file and stores valid 5-letter words.
 std::vector<std::string> read_candidates(std::istream& input) {
     std::unordered_set<std::string> unique_words;
     std::vector<std::string> candidates;

@@ -10,7 +10,7 @@ using size_type = std::string::size_type;
 using letters_and_indices = std::map<size_type, char>;  // Map to store the index and correct letter
 
 
-// Funktorer för att hantera "grå", "gröna" och "gula" bokstäver
+// functors to handle grey, green and yellow letters.
 struct wrong_fn {
     std::string l;  // List of grey letters
     explicit wrong_fn(const std::string& letters);
